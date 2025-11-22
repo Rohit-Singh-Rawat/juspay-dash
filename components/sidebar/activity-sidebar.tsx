@@ -1,12 +1,13 @@
 'use client';
 
 import * as React from 'react';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { Sidebar, SidebarContent, SidebarHeader } from '@/components/ui/sidebar';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { BugIcon } from '@/components/icons/activity/bug';
 import { UserIcon } from '@/components/icons/activity/user';
 import { RadioIcon } from '@/components/icons/activity/radio';
 import { cn } from '@/lib/utils';
+import { useSidebars } from '@/contexts/sidebars-context';
 
 const notifications = [
 	{
@@ -241,15 +242,22 @@ function ContactsSection() {
 
 // Main Activity Sidebar Component
 export function ActivitySidebar() {
+	const { rightSidebarOpen } = useSidebars();
+
 	return (
-		<aside className='w-[280px] border-l bg-background flex flex-col h-screen'>
-			<ScrollArea className='flex-1'>
-				<div className='flex flex-col gap-6 p-5'>
-					<NotificationsSection />
-					<ActivitiesSection />
-					<ContactsSection />
-				</div>
-			</ScrollArea>
-		</aside>
+		<Sidebar
+			side='right'
+			className={cn(
+				'w-[280px] border-l bg-background h-screen transition-[width] duration-200	 ease-linear',
+				!rightSidebarOpen && 'w-0 hidden  '
+			)}
+			collapsible='none'
+		>
+			<SidebarContent className='flex flex-col gap-6 p-5 pt-0'>
+				<NotificationsSection />
+				<ActivitiesSection />
+				<ContactsSection />
+			</SidebarContent>
+		</Sidebar>
 	);
 }
