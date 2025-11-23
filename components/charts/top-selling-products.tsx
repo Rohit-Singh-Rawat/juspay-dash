@@ -42,46 +42,40 @@ const productsData = [
 
 export function TopSellingProducts() {
 	return (
-		<Card className='bg-[#F7F9FB] border-0 shadow-none rounded-2xl'>
-			<CardHeader className='flex flex-row items-center justify-start space-y-0 pb-4'>
-				<CardTitle className='text-sm font-semibold text-primary'>
-					Top Selling Products
-				</CardTitle>
+		<Card className='bg-[#F7F9FB] dark:bg-card border-0 shadow-none rounded-2xl gap-0'>
+			<CardHeader className='flex flex-row items-center justify-start space-y-0 '>
+				<CardTitle className='text-sm font-semibold text-primary'>Top Selling Products</CardTitle>
 			</CardHeader>
 			<CardContent>
 				<div className='w-full'>
 					<div className='overflow-x-auto'>
 						<table className='w-full'>
 							<thead>
-								<tr className='border-b border-border'>
-									<th className='text-left text-xs font-semibold text-primary py-3 px-2'>
-										Name
-									</th>
-									<th className='text-left text-xs font-semibold text-primary py-3 px-2'>
-										Price
-									</th>
-									<th className='text-left text-xs font-semibold text-primary py-3 px-2'>
+								<tr className='border-b border-subtle'>
+									<th className='text-left text-sm font-normal text-secondary py-3 px-2'>Name</th>
+									<th className='text-left text-sm font-normal text-secondary py-3 px-2'>Price</th>
+									<th className='text-left text-sm font-normal text-secondary py-3 px-2'>
 										Quantity
 									</th>
-									<th className='text-left text-xs font-semibold text-primary py-3 px-2'>
-										Amount
-									</th>
+									<th className='text-left text-sm font-normal text-secondary py-3 px-2'>Amount</th>
 								</tr>
 							</thead>
 							<tbody>
 								{productsData.map((product) => (
 									<tr
 										key={product.id}
-										className='border-b border-border last:border-0 hover:bg-white/50 transition-colors'
+										className=' dark:hover:bg-accent transition-colors'
 									>
 										<td className='py-4 px-2 text-sm'>{product.name}</td>
-										<td className='py-4 px-2 text-sm text-secondary-foreground'>
+										<td className='py-4 px-2 text-sm font-normal text-secondary-foreground'>
 											{product.price}
 										</td>
 										<td className='py-4 px-2 text-sm text-secondary-foreground'>
 											{product.quantity}
 										</td>
-										<td className='py-4 px-2 text-sm font-semibold'>{product.amount}</td>
+										<td className='py-4 px-2 text-sm font-normal text-secondary-foreground'>
+											{product.amount}
+										</td>
 									</tr>
 								))}
 							</tbody>
@@ -92,4 +86,3 @@ export function TopSellingProducts() {
 		</Card>
 	);
 }
-

@@ -22,7 +22,7 @@ export function TotalSalesChart() {
 	const directPercentage = ((chartData[0].value / total) * 100).toFixed(1);
 
 	return (
-		<Card className='bg-[#F7F9FB] border-0 shadow-none rounded-2xl'>
+		<Card className='bg-[#F7F9FB] dark:bg-card border-0 shadow-none rounded-2xl'>
 			<CardHeader className='flex flex-row items-center justify-start space-y-0 pb-4'>
 				<CardTitle className='text-sm font-semibold text-primary'>Total Sales</CardTitle>
 			</CardHeader>

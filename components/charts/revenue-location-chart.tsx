@@ -34,33 +34,33 @@ const locationData = [
 
 export function RevenueLocationChart() {
 	return (
-		<Card className='bg-[#F7F9FB] border-0 shadow-none rounded-2xl h-full flex flex-col gap-2'>
-			<CardHeader className=''>
+		<Card className='bg-[#F7F9FB] dark:bg-card border-0 shadow-none rounded-2xl  flex flex-col gap-2 flex-1 h-full'>
+			<CardHeader className='pb-0 gap-0'>
 				<CardTitle className='text-sm font-semibold text-primary'>Revenue by Location</CardTitle>
 			</CardHeader>
-			<CardContent className='flex-1 flex flex-col'>
-				<div className='relative w-full shrink-0 overflow-hidden'>
+			<CardContent className='h-fit flex flex-col'>
+				<div className='relative flex justify-center items-center shrink-0 overflow-hidden'>
 					<ComposableMap
 						projection='geoMercator'
 						projectionConfig={{
-							scale: 150,
-							center: [0, 20],
+							scale: 120,
+							center: [0, 50],
 						}}
-						className='w-full h-full cursor-grab'
+						className='w-auto h-fit max-h-40 cursor-grab'
 					>
-						<ZoomableGroup >
+						<ZoomableGroup>
 							<Geographies geography={geoUrl}>
 								{({ geographies }: { geographies: any[] }) =>
 									geographies.map((geo: any) => (
 										<Geography
 											key={geo.rsmKey}
 											geography={geo}
-											fill='#D6E4F0'
+											fill='var(--location-map-base)'
 											stroke='#ffffff'
 											strokeWidth={0.5}
 											style={{
 												default: { outline: 'none' },
-												hover: { outline: 'none', fill: '#A8C5DA' },
+												hover: { outline: 'none', fill: 'var(--location-map-hover)' },
 												pressed: { outline: 'none' },
 											}}
 										/>
@@ -74,7 +74,7 @@ export function RevenueLocationChart() {
 								>
 									<circle
 										r={8}
-										fill='#1C1C1C'
+										fill='var(--location-marker)'
 										stroke='#ffffff'
 										strokeWidth={2}
 										style={{
@@ -99,9 +99,9 @@ export function RevenueLocationChart() {
 								<span className='text-xs font-normal text-primary'>{location.name}</span>
 								<span className='text-xs font-normal'>{location.value}</span>
 							</div>
-							<div className='w-full bg-linear-to-r from-white/80 to-white rounded-full h-1'>
+							<div className='w-full bg-linear-to-r from-location-map-base/80 to-location-map-hover/80 rounded-full h-1'>
 								<div
-									className='bg-[#A8C5DA] h-1 rounded-full'
+									className='bg-location-progress h-1 rounded-full'
 									style={{ width: `${location.percentage}%` }}
 								/>
 							</div>

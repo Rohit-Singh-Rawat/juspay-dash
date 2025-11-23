@@ -29,7 +29,7 @@ type TabType = 'favorites' | 'recently';
 
 function NavigationHeader() {
 	return (
-		<SidebarHeader className='p-1 mb-2 px-4'>
+		<SidebarHeader className='p-1 mb-2 px-4 text-primary'>
 			<div className='flex items-center gap-2'>
 				<Avatar className='h-6 w-6'>
 					<AvatarImage
@@ -63,7 +63,7 @@ function FavoritesRecentlySection({
 					type='button'
 					onClick={() => onTabChange('favorites')}
 					className={cn(
-						'flex items-center hover:bg-[#f3f3f3] justify-center px-2 py-1 text-sm font-normal rounded-lg transition-colors',
+						'flex items-center hover:bg-[#f3f3f3] dark:hover:bg-accent justify-center px-2 py-1 text-sm font-normal rounded-lg transition-colors',
 						activeTab === 'favorites' ? 'text-secondary' : 'text-subtle hover:text-secondary'
 					)}
 				>
@@ -73,7 +73,7 @@ function FavoritesRecentlySection({
 					type='button'
 					onClick={() => onTabChange('recently')}
 					className={cn(
-						'flex items-center justify-center hover:bg-[#f3f3f3] gap-2 px-2 py-1 text-sm font-normal rounded-lg transition-colors',
+						'flex items-center justify-center hover:bg-[#f3f3f3] dark:hover:bg-accent gap-2 px-2 py-1 text-sm font-normal rounded-lg transition-colors',
 						activeTab === 'recently' ? 'text-secondary' : 'text-subtle hover:text-secondary'
 					)}
 				>
@@ -262,7 +262,7 @@ export function NavigationSidebar() {
 	return (
 		<Sidebar
 			side='left'
-			className='border-r bg-white py-5'
+			className='border-r bg-sidebar py-5'
 			collapsible='offcanvas'
 		>
 			<NavigationHeader />

@@ -3,21 +3,27 @@ import { NavigationSidebar } from '@/components/sidebar/navigation-sidebar';
 import { ActivitySidebar } from '@/components/sidebar/activity-sidebar';
 import { Header } from '@/components/layout/header';
 import { FavoritesProvider } from '@/contexts/favorites-context';
-import { SidebarsProvider } from '@/contexts/sidebars-context';
+import { RightSidebarProvider } from '@/contexts/sidebars-context';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<FavoritesProvider>
-			<SidebarsProvider>
+			<RightSidebarProvider>
 				<SidebarProvider>
 					<NavigationSidebar />
-					<SidebarInset>
-						<Header />
-						<div className='flex flex-1 flex-col gap-4 p-6'>{children}</div>
+					<SidebarInset className=' h-screen overflow-hidden'>
+						<div className='flex h-full w-full'>
+							<div className='flex flex-1 flex-col min-w-0'>
+								<Header />
+								<div className='flex flex-1 flex-col gap-4 p-6 h-[calc(100dvh-56px)] overflow-y-auto'>
+									{children}
+								</div>
+							</div>
+							<ActivitySidebar />
+						</div>
 					</SidebarInset>
-					<ActivitySidebar />
 				</SidebarProvider>
-			</SidebarsProvider>
+			</RightSidebarProvider>
 		</FavoritesProvider>
 	);
 }

@@ -22,29 +22,29 @@ const chartData = [
 const chartConfig = {
 	currentWeek: {
 		label: 'Current Week',
-		color: '#1C1C1C',
+		color: 'var(--revenue-current)',
 	},
 	previousWeek: {
 		label: 'Previous Week',
-		color: '#A8C5DA',
+		color: 'var(--revenue-previous)',
 	},
 } satisfies ChartConfig;
 
 export function RevenueChart() {
 	return (
-		<Card className='bg-[#F7F9FB] border-0 shadow-none rounded-2xl'>
+		<Card className='bg-[#F7F9FB] dark:bg-card border-0 shadow-none rounded-2xl gap-2 flex-1 h-full'>
 			<CardHeader className='flex flex-row items-center justify-start space-y-0 pb-4'>
 				<CardTitle className='text-sm font-semibold text-primary'>Revenue</CardTitle>
 				<div className='w-px h-5 bg-border mx-2' />
 				<div className='flex items-center gap-3 text-sm'>
 					<div className='flex items-center gap-2 '>
-						<div className='w-2 h-2 rounded-full bg-[#1C1C1C]' />
+						<div className='w-2 h-2 rounded-full bg-revenue-current' />
 						<span className='text-xs py-1 px-2'>
 							Current Week <span className='font-semibold ml-1'>$58,211</span>
 						</span>
 					</div>
 					<div className='flex items-center gap-2'>
-						<div className='w-2 h-2 rounded-full bg-[#A8C5DA]' />
+						<div className='w-2 h-2 rounded-full bg-revenue-previous' />
 						<span className='text-xs py-1 px-2'>
 							Previous Week <span className='font-semibold ml-1'>$68,768</span>
 						</span>
@@ -54,7 +54,7 @@ export function RevenueChart() {
 			<CardContent>
 				<ChartContainer
 					config={chartConfig}
-					className='h-[280px] w-full'
+					className='h-[250px] w-full'
 				>
 					<LineChart
 						accessibilityLayer
@@ -70,6 +70,7 @@ export function RevenueChart() {
 							vertical={false}
 							strokeDasharray='0'
 							stroke='#E5E7EB'
+							className='dark:stroke-border'
 						/>
 						<XAxis
 							dataKey='month'

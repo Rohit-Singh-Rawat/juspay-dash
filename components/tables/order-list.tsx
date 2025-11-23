@@ -151,7 +151,7 @@ function FormInput({ id, value, onChange, placeholder, required = false }: FormI
 			value={value}
 			onChange={(e) => onChange(e.target.value)}
 			placeholder={placeholder}
-			className='border-black/5 placeholder:text-subtle rounded-2xl p-4 h-12 focus:bg-muted'
+			className='border-black/5 dark:border-border placeholder:text-subtle rounded-2xl p-4 h-12 focus:bg-muted'
 			required={required}
 		/>
 	);
@@ -238,7 +238,7 @@ function AddOrderDialog({ open, onOpenChange, onAddOrder }: AddOrderDialogProps)
 						>
 							<SelectTrigger
 								id='status'
-								className='border-black/5 data-placeholder:text-subtle rounded-2xl p-4 h-12 flex-1 data-[size=default]:h-12 data-[size=sm]:h-12'
+								className='border-black/5 dark:border-border data-placeholder:text-subtle rounded-2xl p-4 h-12 flex-1 data-[size=default]:h-12 data-[size=sm]:h-12'
 							>
 								<SelectValue
 									placeholder='Select status'
@@ -376,7 +376,7 @@ export function OrderList({ data: initialData }: OrderListProps) {
 		<TooltipProvider>
 			<div className='space-y-4'>
 				{/* Table Header Controls */}
-				<div className='flex items-center justify-between gap-4 bg-[#F7F9FB] rounded-lg p-2'>
+				<div className='flex items-center justify-between gap-4 bg-[#F7F9FB] dark:bg-card rounded-lg p-2'>
 					<div className='flex items-center gap-3'>
 						{/* Add Order Button with Tooltip */}
 						<Tooltip>
@@ -438,7 +438,7 @@ export function OrderList({ data: initialData }: OrderListProps) {
 							id={`${id}-search`}
 							ref={inputRef}
 							className={cn(
-								'peer w-48 ps-9 h-9 bg-white/40 active:ring-1 placeholder:text-subtle border rounded-lg border-black/10',
+								'peer w-48 ps-9 h-9 bg-white/40 dark:bg-accent active:ring-1 placeholder:text-subtle border rounded-lg border-black/10 dark:border-border',
 								Boolean(searchValue) && 'pe-9'
 							)}
 							value={searchValue}
@@ -510,7 +510,7 @@ export function OrderList({ data: initialData }: OrderListProps) {
 									<TableRow
 										key={row.id}
 										data-state={row.getIsSelected() && 'selected'}
-										className='hover:bg-[#F7F9FB] rounded-lg border-black/5 group'
+										className='hover:bg-[#F7F9FB] dark:hover:bg-card rounded-lg border-black/5 dark:border-border group'
 									>
 										{row.getVisibleCells().map((cell) => (
 											<TableCell key={cell.id}>

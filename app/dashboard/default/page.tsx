@@ -14,28 +14,28 @@ const metricCards = [
 		value: '3,781',
 		change: '+11.01%',
 		isPositive: true,
-		bgColor: '#E3F5FF',
+		useSecondary: true,
 	},
 	{
 		title: 'Orders',
 		value: '1,219',
 		change: '-0.03%',
 		isPositive: false,
-		bgColor: '#F7F9FB',
+		useSecondary: false,
 	},
 	{
 		title: 'Revenue',
 		value: '$695',
 		change: '+15.03%',
 		isPositive: true,
-		bgColor: '#F7F9FB',
+		useSecondary: false,
 	},
 	{
 		title: 'Growth',
 		value: '30.1%',
 		change: '+6.08%',
 		isPositive: true,
-		bgColor: '#E5ECF6',
+		useSecondary: true,
 	},
 ];
 
@@ -44,26 +44,27 @@ interface MetricCardProps {
 	value: string;
 	change: string;
 	isPositive: boolean;
-	bgColor: string;
+	useSecondary?: boolean;
 }
 
-function MetricCard({ title, value, change, isPositive, bgColor }: MetricCardProps) {
+function MetricCard({ title, value, change, isPositive, useSecondary }: MetricCardProps) {
 	return (
 		<Card
-			className='border-0 shadow-none rounded-2xl p-6 gap-1 justify-center '
-			style={{ backgroundColor: bgColor }}
+			className={`border-0 shadow-none rounded-2xl p-6 gap-1 justify-center ${
+				useSecondary ? 'bg-card-secondary dark:bg-card-secondary' : 'bg-card dark:bg-card'
+			}`}
 		>
 			<CardHeader className='p-0'>
-				<CardTitle className='text-sm font-semibold text-primary px-2 py-1'>{title}</CardTitle>
+				<CardTitle className={`text-sm font-semibold px-2 py-1 ${useSecondary ? 'text-primary dark:text-black' : 'text-primary'}`}>{title}</CardTitle>
 			</CardHeader>
-			<CardContent className='flex justify-between items-center p-0'>
-				<div className='text-3xl font-bold'>{value}</div>
+			<CardContent className='flex justify-between items-center p-y-1 px-2'>
+				<div className={`text-2xl font-semibold ${useSecondary ? 'dark:text-black' : ''}`}>{value}</div>
 				<div className='flex items-center gap-1 mt-1 text-sm'>
-					<span className='text-primary'>{change}</span>
+					<span className={`${useSecondary ? 'text-primary dark:text-black' : 'text-primary'}`}>{change}</span>
 					{isPositive ? (
-						<TrendingUp className='h-4 w-4 text-primary' />
+						<TrendingUp className={`h-4 w-4 ${useSecondary ? 'text-primary dark:text-black' : 'text-primary'}`} />
 					) : (
-						<TrendingDown className='h-4 w-4 text-primary' />
+						<TrendingDown className={`h-4 w-4 ${useSecondary ? 'text-primary dark:text-black' : 'text-primary'}`} />
 					)}
 				</div>
 			</CardContent>
@@ -73,7 +74,7 @@ function MetricCard({ title, value, change, isPositive, bgColor }: MetricCardPro
 
 export default function DefaultPage() {
 	return (
-		<div className='flex flex-col gap-4 max-w-6xl w-full mx-auto'>
+		<div className='flex flex-col gap-4  w-full mx-auto'>
 			<h1 className='text-sm font-semibold px-2 py-1'>Default Dashboard</h1>
 
 			<div className='grid grid-cols-1 xl:grid-cols-2 gap-7'>
@@ -86,7 +87,7 @@ export default function DefaultPage() {
 							value={metric.value}
 							change={metric.change}
 							isPositive={metric.isPositive}
-							bgColor={metric.bgColor}
+							useSecondary={metric.useSecondary}
 						/>
 					))}
 				</div>

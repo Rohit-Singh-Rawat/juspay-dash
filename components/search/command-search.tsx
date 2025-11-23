@@ -45,13 +45,13 @@ export function CommandSearch({ navigationItems = [] }: CommandSearchProps) {
 	return (
 		<>
 			<button
-				className='relative h-9 w-full flex items-center justify-start rounded-2xl bg-white px-3 text-sm text-muted-foreground hover:bg-white/90 transition-colors border shadow-sm'
+				className='relative px-2 py-1  w-full text-subtle flex items-center justify-start rounded-lg bg-sidebar-accent  text-sm  hover:bg-sidebar-accent/90 transition-colors  shadow-sm'
 				onClick={() => setOpen(true)}
 			>
-				<SearchIcon className='mr-2 size-4 text-gray-400' />
-				<span className='text-gray-500'>Search</span>
-				<kbd className='pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 inline-flex h-5 select-none items-center gap-1 rounded border border-gray-200 bg-gray-50 px-1.5 font-mono text-[10px] font-medium'>
-					<span className='text-xs'>⌘</span>K
+				<SearchIcon className='mr-2 size-4 ' />
+				<span className=''>Search</span>
+				<kbd className='pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 inline-flex h-5 select-none items-center gap-1 rounded  px-1 font-medium'>
+					<span className=''>⌘</span>/
 				</kbd>
 			</button>
 			<CommandDialog open={open} onOpenChange={setOpen}>

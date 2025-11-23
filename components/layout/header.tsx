@@ -11,6 +11,8 @@ import { useFavorites } from '@/contexts/favorites-context';
 import { Separator } from '@/components/ui/separator';
 import { CommandSearch } from '@/components/search/command-search';
 import { dashboards, pages } from '@/config/navigation';
+import { useTheme } from 'next-themes';
+import { Moon } from 'lucide-react';
 
 function Breadcrumb() {
 	const pathname = usePathname();
@@ -58,7 +60,7 @@ function FavoriteButton() {
 		<Button
 			variant='ghost'
 			size='icon-sm'
-			className='rounded-lg p-1'
+			className='rounded-lg p-1 size-7'
 			onClick={handleClick}
 		>
 			<StarIcon
@@ -69,10 +71,25 @@ function FavoriteButton() {
 	);
 }
 
+function ThemeToggle() {
+	const { theme, setTheme } = useTheme();
+
+	return (
+		<Button
+			variant='ghost'
+			size='icon'
+			className='rounded-lg size-7'
+			onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+		>
+			{theme === 'dark' ? <SunIcon className='size-5' /> : <Moon className='size-5' />}
+		</Button>
+	);
+}
+
 export function Header() {
 	// Combine all navigation items for search
 	const allNavigationItems = [
-		...Object.values(dashboards),
+		...Object.values(dashboards).flatMap((section) => section.items || []),
 		...Object.entries(pages).flatMap(([sectionTitle, section]) =>
 			section.items.map((item) => ({
 				...item,
@@ -93,20 +110,14 @@ export function Header() {
 				<Breadcrumb />
 			</div>
 			<div className='flex items-center gap-2 px-3'>
-				<div className='w-64'>
+				<div className='w-40'>
 					<CommandSearch navigationItems={allNavigationItems} />
 				</div>
+				<ThemeToggle />
 				<Button
 					variant='ghost'
 					size='icon'
-					className='rounded-lg'
-				>
-					<SunIcon className='size-5' />
-				</Button>
-				<Button
-					variant='ghost'
-					size='icon'
-					className='rounded-lg'
+					className='rounded-lg size-7'
 				>
 					<ActivityIcon className='size-5' />
 				</Button>
@@ -117,7 +128,7 @@ export function Header() {
 				<Button
 					variant='ghost'
 					size='icon'
-					className='rounded-lg'
+					className='rounded-lg size-7'
 				>
 					<NotificationIcon className='size-5' />
 				</Button>

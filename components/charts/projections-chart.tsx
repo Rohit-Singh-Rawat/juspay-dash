@@ -21,22 +21,25 @@ const chartData = [
 const chartConfig = {
 	projected: {
 		label: 'Projected',
-		color: '#cfdeea',
+		color: 'var(--projections-projected)',
 	},
 	actual: {
 		label: 'Actual',
-		color: '#A8C5DA',
+		color: 'var(--projections-actual)',
 	},
 } satisfies ChartConfig;
 
 export function ProjectionsChart() {
 	return (
-		<Card className='bg-[#F7F9FB] border-0 shadow-none rounded-2xl'>
+		<Card className='bg-[#F7F9FB] dark:bg-card border-0 shadow-none rounded-2xl w-full gap-2'>
 			<CardHeader>
 				<CardTitle className='text-sm font-semibold text-primary'>Projections vs Actuals</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<ChartContainer config={chartConfig}>
+				<ChartContainer
+					config={chartConfig}
+					className='h-[190px] w-full'
+				>
 					<BarChart
 						accessibilityLayer
 						data={chartData}
@@ -60,7 +63,6 @@ export function ProjectionsChart() {
 								return value;
 							}}
 							tick={{ fill: 'hsl(var(--secondary))', fontSize: 12 }}
-							
 						/>
 						<ChartTooltip content={<ChartTooltipContent hideLabel />} />
 						<Bar

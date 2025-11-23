@@ -1,13 +1,12 @@
 'use client';
 
 import * as React from 'react';
-import { Sidebar, SidebarContent, SidebarHeader } from '@/components/ui/sidebar';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { BugIcon } from '@/components/icons/activity/bug';
 import { UserIcon } from '@/components/icons/activity/user';
 import { RadioIcon } from '@/components/icons/activity/radio';
 import { cn } from '@/lib/utils';
-import { useSidebars } from '@/contexts/sidebars-context';
+import { useRightSidebar } from '@/contexts/sidebars-context';
 
 const notifications = [
 	{
@@ -87,16 +86,14 @@ const contacts = [
 	{ id: 6, name: 'Koray Okumus', avatar: '/images/activity/koray.png', color: 'bg-cyan-400' },
 ];
 
-// Section Header Component
 function SectionHeader({ title }: { title: string }) {
 	return (
 		<div className='flex items-center justify-between px-2 py-1'>
-			<h3 className='text-sm font-semibold  text-foreground'>{title}</h3>
+			<h3 className='text-sm font-semibold text-foreground'>{title}</h3>
 		</div>
 	);
 }
 
-// Notification Item Component
 function NotificationItem({
 	icon: Icon,
 	title,
@@ -108,18 +105,17 @@ function NotificationItem({
 }) {
 	return (
 		<div className='flex items-start gap-2 p-1'>
-			<div className='size-6 rounded-lg bg-[#E3F5FF] flex items-center justify-center shrink-0'>
-				<Icon className='w-4 h-4 text-[#1C1C1C]' />
+			<div className='size-6 rounded-lg bg-[#E3F5FF]  flex items-center justify-center shrink-0'>
+				<Icon className='w-4 h-4 text-[#1C1C1C] ' />
 			</div>
 			<div className='flex-1 min-w-0'>
 				<p className='text-sm text-foreground truncate'>{title}</p>
-				<p className='text-xs font-normal text-secondary '>{time}</p>
+				<p className='text-xs font-normal text-secondary'>{time}</p>
 			</div>
 		</div>
 	);
 }
 
-// Notifications Section Component
 function NotificationsSection() {
 	return (
 		<div className='space-y-2'>
@@ -137,8 +133,6 @@ function NotificationsSection() {
 		</div>
 	);
 }
-
-// Activity Item Component
 
 function ActivityItem({
 	user,
@@ -174,13 +168,12 @@ function ActivityItem({
 			</div>
 			<div className='flex-1 min-w-0'>
 				<p className='text-sm text-foreground truncate'>{action}</p>
-				<p className='text-xs font-normal text-secondary '>{time}</p>
+				<p className='text-xs font-normal text-secondary'>{time}</p>
 			</div>
 		</div>
 	);
 }
 
-// Activities Section Component
 function ActivitiesSection() {
 	return (
 		<div className='space-y-2'>
@@ -201,7 +194,6 @@ function ActivitiesSection() {
 	);
 }
 
-// Contact Item Component
 function ContactItem({ name, avatar, color }: { name: string; avatar: string; color: string }) {
 	return (
 		<div className='flex items-start gap-2 p-1'>
@@ -221,7 +213,6 @@ function ContactItem({ name, avatar, color }: { name: string; avatar: string; co
 	);
 }
 
-// Contacts Section Component
 function ContactsSection() {
 	return (
 		<div className='space-y-2'>
@@ -240,24 +231,25 @@ function ContactsSection() {
 	);
 }
 
-// Main Activity Sidebar Component
-export function ActivitySidebar() {
-	const { rightSidebarOpen } = useSidebars();
+function ActivitySidebar() {
+	const { open } = useRightSidebar();
 
 	return (
-		<Sidebar
-			side='right'
+		<aside
 			className={cn(
-				'w-[280px] border-l bg-background h-screen transition-[width] duration-200	 ease-linear',
-				!rightSidebarOpen && 'w-0 hidden  '
+				'relative h-full bg-background border-l border-border',
+				'transition-all duration-200 delay-100 ease-in-out',
+				'overflow-y-auto overflow-x-hidden',
+				open ? 'w-[280px] translate-x-0' : 'w-0 translate-x-full opacity-0 pointer-events-none'
 			)}
-			collapsible='none'
 		>
-			<SidebarContent className='flex flex-col gap-6 p-5 pt-0'>
+			<div className='flex flex-col gap-6 p-5 h-full min-w-[280px]'>
 				<NotificationsSection />
 				<ActivitiesSection />
 				<ContactsSection />
-			</SidebarContent>
-		</Sidebar>
+			</div>
+		</aside>
 	);
 }
+
+export { ActivitySidebar };
