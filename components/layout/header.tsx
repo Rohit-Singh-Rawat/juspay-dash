@@ -72,7 +72,7 @@ function FavoriteButton() {
 export function Header() {
 	// Combine all navigation items for search
 	const allNavigationItems = [
-		...dashboards,
+		...Object.values(dashboards),
 		...Object.entries(pages).flatMap(([sectionTitle, section]) =>
 			section.items.map((item) => ({
 				...item,

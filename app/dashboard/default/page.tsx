@@ -74,7 +74,7 @@ function MetricCard({ title, value, change, isPositive, bgColor }: MetricCardPro
 export default function DefaultPage() {
 	return (
 		<div className='flex flex-col gap-4 max-w-6xl w-full mx-auto'>
-			<h1 className='text-sm font-semibold  px-2 py-1'>eCommerce</h1>
+			<h1 className='text-sm font-semibold px-2 py-1'>Default Dashboard</h1>
 
 			<div className='grid grid-cols-1 xl:grid-cols-2 gap-7'>
 				{/* Left side - Metric Cards */}

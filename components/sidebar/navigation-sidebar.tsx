@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { usePathname } from 'next/navigation';
+import type { ComponentType } from 'react';
 import {
 	Sidebar,
 	SidebarContent,
@@ -21,15 +22,14 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useFavorites } from '@/contexts/favorites-context';
-import { useSidebars } from '@/contexts/sidebars-context';
-import { dashboards, pages } from '@/config/navigation';
+import type { NavigationItem } from '@/config/navigation';
+import { dashboards, dashboardLinks, pages } from '@/config/navigation';
 
 type TabType = 'favorites' | 'recently';
 
-// Header Component
 function NavigationHeader() {
 	return (
-		<SidebarHeader className='p-1 mb-2 px-4 '>
+		<SidebarHeader className='p-1 mb-2 px-4'>
 			<div className='flex items-center gap-2'>
 				<Avatar className='h-6 w-6'>
 					<AvatarImage
@@ -100,8 +100,76 @@ function FavoritesRecentlySection({
 	);
 }
 
-// Dashboards Section Component
-function DashboardsSection() {
+interface CollapsibleSectionProps {
+	title: string;
+	icon: ComponentType<{ className?: string }>;
+	items: NavigationItem[];
+	isOpen: boolean;
+	onToggle: () => void;
+}
+
+function CollapsibleSection({
+	title,
+	icon: Icon,
+	items,
+	isOpen,
+	onToggle,
+}: CollapsibleSectionProps) {
+	const pathname = usePathname();
+	const isActive = (url: string) => pathname === url;
+
+	return (
+		<Collapsible
+			open={isOpen}
+			onOpenChange={onToggle}
+		>
+			<SidebarMenuItem>
+				<CollapsibleTrigger asChild>
+					<SidebarMenuButton className='text-sm font-normal gap-1'>
+						<ChevronRight
+							className={cn(
+								'h-4 w-4 transition-transform text-subtle shrink-0',
+								isOpen && 'rotate-90'
+							)}
+						/>
+						<Icon className='shrink-0 size-5	' />
+						<span className='truncate'>{title}</span>
+					</SidebarMenuButton>
+				</CollapsibleTrigger>
+				<CollapsibleContent>
+					<SidebarMenuSub className='border-none'>
+						{items.map((subItem) => {
+							const active = isActive(subItem.url);
+							return (
+								<SidebarMenuSubItem key={subItem.title}>
+									<SidebarMenuSubButton
+										asChild
+										isActive={active}
+									>
+										<a
+											href={subItem.url}
+											className='text-sm font-normal ml-4'
+										>
+											{subItem.title}
+										</a>
+									</SidebarMenuSubButton>
+								</SidebarMenuSubItem>
+							);
+						})}
+					</SidebarMenuSub>
+				</CollapsibleContent>
+			</SidebarMenuItem>
+		</Collapsible>
+	);
+}
+
+function DashboardsSection({
+	openSections,
+	onToggleSection,
+}: {
+	openSections: Record<string, boolean>;
+	onToggleSection: (title: string) => void;
+}) {
 	const pathname = usePathname();
 	const isActive = (url: string) => pathname === url;
 
@@ -111,7 +179,7 @@ function DashboardsSection() {
 				Dashboards
 			</SidebarGroupLabel>
 			<SidebarMenu>
-				{dashboards.map((item) => {
+				{dashboardLinks.map((item) => {
 					const Icon = item.icon;
 					const active = isActive(item.url);
 					return (
@@ -125,19 +193,28 @@ function DashboardsSection() {
 									href={item.url}
 									className='text-sm font-normal'
 								>
-									{Icon && <Icon className='ml-2' />}
+									{Icon && <Icon className=' size-5 ml-5' />}
 									{item.title}
 								</a>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
 					);
 				})}
+				{Object.entries(dashboards).map(([key, { icon, items }]) => (
+					<CollapsibleSection
+						key={key}
+						title={key}
+						icon={icon}
+						items={items}
+						isOpen={openSections[key] || false}
+						onToggle={() => onToggleSection(key)}
+					/>
+				))}
 			</SidebarMenu>
 		</SidebarGroup>
 	);
 }
 
-// Pages Section Component
 function PagesSection({
 	openSections,
 	onToggleSection,
@@ -145,73 +222,33 @@ function PagesSection({
 	openSections: Record<string, boolean>;
 	onToggleSection: (title: string) => void;
 }) {
-	const pathname = usePathname();
-	const isActive = (url: string) => pathname === url;
-
 	return (
 		<SidebarGroup className='gap-1'>
 			<SidebarGroupLabel className='px-2 text-sm font-normal text-secondary py-1'>
 				Pages
 			</SidebarGroupLabel>
 			<SidebarMenu>
-				{Object.entries(pages).map(([key, { icon, items }]) => {
-					const Icon = icon;
-					return (
-						<Collapsible
-							key={key}
-							open={openSections[key]}
-							onOpenChange={() => onToggleSection(key)}
-						>
-							<SidebarMenuItem>
-								<CollapsibleTrigger asChild>
-									<SidebarMenuButton className='text-sm font-normal gap-1'>
-										<ChevronRight
-											className={cn(
-												'h-4 w-4 transition-transform text-subtle shrink-0',
-												openSections[key] && 'rotate-90'
-											)}
-										/>
-										<Icon className='shrink-0' />
-										<span className='truncate'>{key}</span>
-									</SidebarMenuButton>
-								</CollapsibleTrigger>
-								{items.length > 0 && (
-									<CollapsibleContent>
-										<SidebarMenuSub className='border-none'>
-											{items.map((subItem) => {
-												const active = isActive(subItem.url);
-												return (
-													<SidebarMenuSubItem key={subItem.title}>
-														<SidebarMenuSubButton
-															asChild
-															isActive={active}
-														>
-															<a
-																href={subItem.url}
-																className='text-sm font-normal ml-4'
-															>
-																{subItem.title}
-															</a>
-														</SidebarMenuSubButton>
-													</SidebarMenuSubItem>
-												);
-											})}
-										</SidebarMenuSub>
-									</CollapsibleContent>
-								)}
-							</SidebarMenuItem>
-						</Collapsible>
-					);
-				})}
+				{Object.entries(pages).map(([key, { icon, items }]) => (
+					<CollapsibleSection
+						key={key}
+						title={key}
+						icon={icon}
+						items={items}
+						isOpen={openSections[key] || false}
+						onToggle={() => onToggleSection(key)}
+					/>
+				))}
 			</SidebarMenu>
 		</SidebarGroup>
 	);
 }
 
-// Main Navigation Sidebar Component
 export function NavigationSidebar() {
 	const [activeTab, setActiveTab] = React.useState<TabType>('favorites');
 	const [openSections, setOpenSections] = React.useState<Record<string, boolean>>({
+		eCommerce: true,
+		Projects: false,
+		'Online Courses': false,
 		'User Profile': false,
 	});
 
@@ -235,7 +272,10 @@ export function NavigationSidebar() {
 					activeTab={activeTab}
 					onTabChange={setActiveTab}
 				/>
-				<DashboardsSection />
+				<DashboardsSection
+					openSections={openSections}
+					onToggleSection={toggleSection}
+				/>
 				<PagesSection
 					openSections={openSections}
 					onToggleSection={toggleSection}

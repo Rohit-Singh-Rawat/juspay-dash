@@ -15,6 +15,11 @@ export interface NavigationItem {
 	icon?: ComponentType<{ className?: string }>;
 }
 
+export interface DashboardSection {
+	icon: ComponentType<{ className?: string }>;
+	items: NavigationItem[];
+}
+
 export interface PageSection {
 	icon: ComponentType<{ className?: string }>;
 	items: NavigationItem[];
@@ -23,10 +28,7 @@ export interface PageSection {
 export const iconMap: Record<string, ComponentType<{ className?: string }>> = {
 	'/dashboard/default': DefaultIcon,
 	'/dashboard/ecommerce': ECommerceIcon,
-	'/dashboard/projects': ProjectsIcon,
-	'/dashboard/projects-dash': ProjectsIcon,
-	'/dashboard/online-courses': OnlineCoursesIcon,
-	'/pages/user-profile/overview': UserProfileIcon,
+	'/dashboard/ecommerce/orders': ECommerceIcon,
 	'/pages/user-profile/projects': UserProfileIcon,
 	'/pages/user-profile/campaigns': UserProfileIcon,
 	'/pages/user-profile/documents': UserProfileIcon,
@@ -37,11 +39,25 @@ export const getIconForUrl = (url: string): ComponentType<{ className?: string }
 	return iconMap[url];
 };
 
-export const dashboards: NavigationItem[] = [
+export const dashboards: Record<string, DashboardSection> = {
+	eCommerce: {
+		icon: ECommerceIcon,
+		items: [
+			{ title: 'Order List', url: '/dashboard/ecommerce/orders' },
+		],
+	},
+	Projects: {
+		icon: ProjectsIcon,
+		items: [],
+	},
+	'Online Courses': {
+		icon: OnlineCoursesIcon,
+		items: [],
+	},
+};
+
+export const dashboardLinks: NavigationItem[] = [
 	{ title: 'Default', url: '/dashboard/default', icon: DefaultIcon },
-	{ title: 'eCommerce', url: '/dashboard/ecommerce', icon: ECommerceIcon },
-	{ title: 'Projects', url: '/dashboard/projects-dash', icon: ProjectsIcon },
-	{ title: 'Online Courses', url: '/dashboard/online-courses', icon: OnlineCoursesIcon },
 ];
 
 export const pages: Record<string, PageSection> = {

@@ -146,3 +146,6 @@
 		background: var(--muted-foreground);
 	}
 }
+table tr{
+	border-radius: 10px;
+}
