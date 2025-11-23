@@ -81,7 +81,7 @@ function ThemeToggle() {
 			className='rounded-lg size-7'
 			onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
 		>
-			{theme === 'dark' ? <SunIcon className='size-5' /> : <Moon className='size-5' />}
+			{theme === 'dark' ? <SunIcon className='size-5' /> : <Moon className='size-5 opacity-90 stroke-[1.5px]' />}
 		</Button>
 	);
 }

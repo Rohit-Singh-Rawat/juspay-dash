@@ -17,16 +17,24 @@ const chartData = [
 	{ month: 'April', currentWeek: 16000, previousWeek: 11000 },
 	{ month: 'May', currentWeek: 20000, previousWeek: 19000 },
 	{ month: 'June', currentWeek: 20000, previousWeek: 24000 },
-];
+].map((item, index) => ({
+	...item,
+	currentWeekActual: index <= 3 ? item.currentWeek : null,
+	currentWeekProjected: index >= 3 ? item.currentWeek : null,
+}));
 
 const chartConfig = {
-	currentWeek: {
-		label: 'Current Week',
-		color: 'var(--revenue-current)',
-	},
 	previousWeek: {
 		label: 'Previous Week',
 		color: 'var(--revenue-previous)',
+	},
+	currentWeekActual: {
+		label: 'Current Week',
+		color: 'var(--revenue-current)',
+	},
+	currentWeekProjected: {
+		label: 'Current Week',
+		color: 'var(--revenue-current)',
 	},
 } satisfies ChartConfig;
 
@@ -111,16 +119,29 @@ export function RevenueChart() {
 							strokeLinecap='round'
 						/>
 						<Line
-							dataKey='currentWeek'
+							dataKey='currentWeekActual'
 							type='monotone'
-							stroke='var(--color-currentWeek)'
+							stroke='var(--color-currentWeekActual)'
 							strokeWidth={3}
 							dot={false}
-							strokeDasharray='4 10'
-							strokeDashoffset={0}
+							connectNulls={true}
 							strokeLinejoin='round'
 							strokeLinecap='round'
 							animationBegin={200}
+							animationDuration={500}
+							animationEasing='ease-out'
+						/>
+						<Line
+							dataKey='currentWeekProjected'
+							type='monotone'
+							stroke='var(--color-currentWeekProjected)'
+							strokeWidth={3}
+							strokeDasharray='10 10'
+							dot={false}
+							connectNulls={true}
+							strokeLinejoin='round'
+							strokeLinecap='round'
+							animationBegin={700}
 							animationDuration={500}
 							animationEasing='ease-out'
 						/>
