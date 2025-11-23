@@ -97,7 +97,7 @@ export function ProjectionsChart() {
 							tickMargin={10}
 							axisLine={false}
 							tickFormatter={(value) => value.slice(0, 3)}
-							tick={{ fill: 'hsl(var(--secondary))', fontSize: 12 }}
+							tick={{ fill: 'var(--secondary)', fontSize: 12 }}
 						/>
 						<YAxis
 							tickLine={false}
@@ -107,7 +107,7 @@ export function ProjectionsChart() {
 								if (value >= 1000) return `${value / 1000}K`;
 								return value;
 							}}
-							tick={{ fill: 'hsl(var(--secondary))', fontSize: 12 }}
+							tick={{ fill: 'var(--secondary)', fontSize: 12 }}
 						/>
 						<ChartTooltip content={<CustomTooltip />} />
 						<Bar
@@ -127,6 +127,7 @@ export function ProjectionsChart() {
 							radius={[4, 4, 0, 0]}
 							barSize={20}
 							animationBegin={500}
+
 							animationDuration={500}
 							animationEasing='ease-out'
 						/>

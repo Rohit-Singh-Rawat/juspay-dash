@@ -103,7 +103,7 @@ function StatusFilter({
 					<p>Filter by status</p>
 				</TooltipContent>
 				<PopoverContent
-					className='w-auto min-w-36 p-3'
+					className='w-auto min-w-36 p-3 bg-background rounded-2xl'
 					align='start'
 				>
 					<div className='space-y-3'>
@@ -202,7 +202,7 @@ function AddOrderDialog({ open, onOpenChange, onAddOrder }: AddOrderDialogProps)
 		>
 			<DialogContent className='rounded-4xl p-6 sm:p-10 md:max-w-md mx-4'>
 				<DialogHeader className='space-y-3'>
-					<DialogTitle className='text-xl sm:text-2xl font-normal bg-linear-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent'>
+					<DialogTitle className='text-xl sm:text-2xl font-normal text-primary'>
 						Add New Order
 					</DialogTitle>
 				</DialogHeader>
@@ -245,7 +245,7 @@ function AddOrderDialog({ open, onOpenChange, onAddOrder }: AddOrderDialogProps)
 									className='text-subtle'
 								/>
 							</SelectTrigger>
-							<SelectContent className='rounded-2xl'>
+							<SelectContent className='rounded-2xl bg-background'>
 								{statusOptions.map((option) => (
 									<SelectItem
 										key={option.value}

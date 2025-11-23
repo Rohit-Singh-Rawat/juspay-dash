@@ -24,7 +24,7 @@ const getStatusColor = (status: OrderStatus) => {
 		Complete: '#4AA785',
 		Pending: '#59A8D4',
 		Approved: '#FFC555',
-		Rejected: '#1C1C1C66',
+		Rejected: 'var(--secondary)',
 	};
 	return colors[status] || '#1C1C1C66';
 };

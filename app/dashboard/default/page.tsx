@@ -55,16 +55,36 @@ function MetricCard({ title, value, change, isPositive, useSecondary }: MetricCa
 			}`}
 		>
 			<CardHeader className='p-0'>
-				<CardTitle className={`text-xs sm:text-sm font-semibold px-2 py-1 ${useSecondary ? 'text-primary dark:text-black' : 'text-primary'}`}>{title}</CardTitle>
+				<CardTitle
+					className={`text-xs sm:text-sm font-semibold px-2 py-1 ${
+						useSecondary ? 'text-primary dark:text-black' : 'text-primary'
+					}`}
+				>
+					{title}
+				</CardTitle>
 			</CardHeader>
 			<CardContent className='flex justify-between items-center p-y-1 px-2'>
-				<div className={`text-xl sm:text-2xl font-semibold ${useSecondary ? 'dark:text-black' : ''}`}>{value}</div>
+				<div
+					className={`text-xl sm:text-2xl font-semibold ${useSecondary ? 'dark:text-black' : ''}`}
+				>
+					{value}
+				</div>
 				<div className='flex items-center gap-1 mt-1 text-xs sm:text-sm'>
-					<span className={`${useSecondary ? 'text-primary dark:text-black' : 'text-primary'}`}>{change}</span>
+					<span className={`${useSecondary ? 'text-primary dark:text-black' : 'text-primary'}`}>
+						{change}
+					</span>
 					{isPositive ? (
-						<TrendingUp className={`h-3 w-3 sm:h-4 sm:w-4 ${useSecondary ? 'text-primary dark:text-black' : 'text-primary'}`} />
+						<TrendingUp
+							className={`h-3 w-3 sm:h-4 sm:w-4 ${
+								useSecondary ? 'text-primary dark:text-black' : 'text-primary'
+							}`}
+						/>
 					) : (
-						<TrendingDown className={`h-3 w-3 sm:h-4 sm:w-4 ${useSecondary ? 'text-primary dark:text-black' : 'text-primary'}`} />
+						<TrendingDown
+							className={`h-3 w-3 sm:h-4 sm:w-4 ${
+								useSecondary ? 'text-primary dark:text-black' : 'text-primary'
+							}`}
+						/>
 					)}
 				</div>
 			</CardContent>

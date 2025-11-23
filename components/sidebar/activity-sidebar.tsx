@@ -9,6 +9,7 @@ import { Sheet, SheetContent } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 import { useRightSidebar } from '@/contexts/sidebars-context';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useEffect } from 'react';
 
 const notifications = [
 	{
@@ -246,6 +247,11 @@ function ActivitySidebarContent() {
 function ActivitySidebar() {
 	const { open, setOpen } = useRightSidebar();
 	const isMobile = useIsMobile();
+	useEffect(() => {
+		if (isMobile) {
+			setOpen(false);
+		}
+	}, [isMobile, setOpen]);
 
 	if (isMobile) {
 		return (
@@ -269,6 +275,7 @@ function ActivitySidebar() {
 				'relative h-full bg-background border-l border-border',
 				'transition-all duration-200 delay-100 ease-in-out',
 				'overflow-y-auto overflow-x-hidden',
+				'hidden lg:block',
 				open ? 'w-[280px] translate-x-0' : 'w-0 translate-x-full opacity-0 pointer-events-none'
 			)}
 		>

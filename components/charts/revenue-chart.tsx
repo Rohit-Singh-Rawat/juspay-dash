@@ -86,7 +86,7 @@ export function RevenueChart() {
 							axisLine={false}
 							tickMargin={12}
 							tickFormatter={(value) => value.slice(0, 3)}
-							tick={{ fill: 'hsl(var(--secondary))', fontSize: 12 }}
+							tick={{ fill: 'var(--secondary)', fontSize: 12 }}
 						/>
 						<YAxis
 							tickLine={false}
@@ -97,7 +97,7 @@ export function RevenueChart() {
 								if (value >= 1000) return `${value / 1000}K`;
 								return value;
 							}}
-							tick={{ fill: 'hsl(var(--secondary))', fontSize: 12 }}
+							tick={{ fill: 'var(--secondary)', fontSize: 12 }}
 							domain={[0, 30000]}
 							ticks={[0, 10000, 20000, 30000]}
 						/>
