@@ -10,15 +10,15 @@ import {
 } from '@/components/ui/chart';
 
 const chartData = [
-	{ month: 'January', actual: 142500, projected: 150500 },
-	{ month: 'February', actual: 25800, projected: 27000 },
-	{ month: 'March', actual: 18200, projected: 22000 },
-	{ month: 'April', actual: 28000, projected: 30200 },
-	{ month: 'May', actual: 10000, projected: 15000 },
-	{ month: 'June', actual: 22000, projected: 25000 },
-].map(item => ({
+	{ month: 'January', actual: 10000000, projected: 12000000 },
+	{ month: 'February', actual: 15000000, projected: 18000000 },
+	{ month: 'March', actual: 20000000, projected: 22000000 },
+	{ month: 'April', actual: 18000000, projected: 20000000 },
+	{ month: 'May', actual: 25000000, projected: 28000000 },
+	{ month: 'June', actual: 22000000, projected: 30000000 },
+].map((item) => ({
 	...item,
-	difference: item.projected - item.actual
+	difference: item.projected - item.actual,
 }));
 
 const chartConfig = {
@@ -40,33 +40,33 @@ const CustomTooltip = ({ active, payload }: any) => {
 	if (!active || !payload || !payload.length) return null;
 
 	const data = payload[0].payload;
-	
+
 	return (
 		<div className='rounded-lg border bg-background p-1.5 shadow-sm'>
 			<div className='grid gap-1.5'>
 				<div className='flex flex-col'>
-					<span className='text-[0.65rem] uppercase text-muted-foreground'>
-						{data.month}
-					</span>
+					<span className='text-[0.65rem] uppercase text-muted-foreground'>{data.month}</span>
 				</div>
 				<div className='grid gap-0.5'>
 					<div className='flex items-center justify-between gap-4'>
 						<div className='flex items-center gap-1.5'>
-							<div className='h-2 w-2 rounded-full' style={{ backgroundColor: 'var(--projections-actual)' }} />
+							<div
+								className='h-2 w-2 rounded-full'
+								style={{ backgroundColor: 'var(--projections-actual)' }}
+							/>
 							<span className='text-xs text-muted-foreground'>Actual</span>
 						</div>
-						<span className='text-xs font-medium'>
-							${data.actual.toLocaleString()}
-						</span>
+						<span className='text-xs font-medium'>${data.actual.toLocaleString()}</span>
 					</div>
 					<div className='flex items-center justify-between gap-4'>
 						<div className='flex items-center gap-1.5'>
-							<div className='h-2 w-2 rounded-full' style={{ backgroundColor: 'var(--projections-projected)' }} />
+							<div
+								className='h-2 w-2 rounded-full'
+								style={{ backgroundColor: 'var(--projections-projected)' }}
+							/>
 							<span className='text-xs text-muted-foreground'>Projected</span>
 						</div>
-						<span className='text-xs font-medium'>
-							${data.projected.toLocaleString()}
-						</span>
+						<span className='text-xs font-medium'>${data.projected.toLocaleString()}</span>
 					</div>
 				</div>
 			</div>
@@ -116,8 +116,6 @@ export function ProjectionsChart() {
 							fill='var(--color-actual)'
 							radius={[0, 0, 0, 0]}
 							barSize={20}
-							animationBegin={0}
-							animationDuration={500}
 							animationEasing='ease-out'
 						/>
 						<Bar
@@ -126,9 +124,6 @@ export function ProjectionsChart() {
 							fill='var(--color-difference)'
 							radius={[4, 4, 0, 0]}
 							barSize={20}
-							animationBegin={500}
-
-							animationDuration={500}
 							animationEasing='ease-out'
 						/>
 					</BarChart>

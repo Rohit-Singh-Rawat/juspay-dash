@@ -11,10 +11,10 @@ import {
 import { Coordinate } from 'recharts/types/util/types';
 
 const chartData = [
-	{ name: 'Affilliate', value: 135.18, color: '#BAEDBD' },
-	{ name: 'Direct', value: 300.56, color: '#C6C7F8' },
-	{ name: 'Sponsored', value: 154.02, color: '#95A4FC' },
-	{ name: 'E-mail', value: 48.96, color: '#B1E3FF' },
+	{ name: 'Affilliate', value: 135.18, color: '#BAEDBD', index: 0 },
+	{ name: 'Direct', value: 300.56, color: '#C6C7F8', index: 1 },
+	{ name: 'Sponsored', value: 154.02, color: '#95A4FC', index: 2 },
+	{ name: 'E-mail', value: 48.96, color: '#B1E3FF', index: 3 },
 ];
 
 const chartConfig = {
@@ -33,6 +33,7 @@ type PieSectorData = {
 	paddingAngle?: number;
 	dataKey?: string;
 	payload?: any;
+	index?: number;
 };
 
 type PieSectorDataItem = React.SVGProps<SVGPathElement> & Partial<SectorProps> & PieSectorData;
@@ -57,6 +58,7 @@ const renderActiveShape = ({
 	const endX = (cx ?? 0) + Math.cos(-RADIAN * (endAngle ?? 0)) * midRadius;
 	const endY = (cy ?? 0) + Math.sin(-RADIAN * (endAngle ?? 0)) * midRadius;
 
+	const isLast = payload?.index === chartData.length - 1;
 	return (
 		<g>
 			<Sector
@@ -69,12 +71,25 @@ const renderActiveShape = ({
 				fill={fill}
 				cornerRadius={50}
 			/>{' '}
-			<circle
-				cx={endX}
-				cy={endY}
-				r={capRadius}
-				fill='var(--card)'
-			/>
+			{isLast ? (
+				<>
+					<path
+						d={`M ${endX - capRadius} ${endY} A ${capRadius} ${capRadius} 0 0 0 ${endX + capRadius} ${endY}`}
+						fill='var(--card)'
+					/>
+					
+				</>
+			) : (
+				<>
+					<circle
+						cx={endX}
+						cy={endY}
+						r={capRadius}
+						fill='var(--card)'
+					/>
+				
+				</>
+			)}
 		</g>
 	);
 };
@@ -103,6 +118,7 @@ export function TotalSalesChart() {
 							cornerRadius='50%'
 							strokeWidth={0}
 							strokeLinecap='butt'
+							
 							paddingAngle={5}
 						>
 							{chartData.map((entry, index) => (
@@ -113,13 +129,14 @@ export function TotalSalesChart() {
 							))}
 						</Pie>
 						<ChartTooltip
-							content={<ChartTooltipContent hideLabel />}
-							formatter={(value: number, name: string) => (
-								<div className='flex items-center gap-2'>
-									<span className='font-medium'>{name}:</span>
-									<span className='font-bold'>${value.toFixed(2)}</span>
-								</div>
-							)}
+							content={({ active, payload }) => {
+								if (!active || !payload?.length) return null;
+								return (
+									<div className='rounded-lg bg-[#1C1C1CCC] px-3 py-2 shadow-md'>
+										<span className='font-normal text-white'>${payload[0].value.toFixed(2)}</span>
+									</div>
+								);
+							}}
 						/>
 					</PieChart>
 				</ChartContainer>

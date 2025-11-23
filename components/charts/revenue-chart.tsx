@@ -10,14 +10,21 @@ import {
 } from '@/components/ui/chart';
 import { Separator } from '../ui/separator';
 
-const chartData = [
-	{ month: 'January', currentWeek: 13000, previousWeek: 7000 },
-	{ month: 'February', currentWeek: 17000, previousWeek: 16000 },
-	{ month: 'March', currentWeek: 8000, previousWeek: 17000 },
-	{ month: 'April', currentWeek: 16000, previousWeek: 11000 },
-	{ month: 'May', currentWeek: 20000, previousWeek: 19000 },
-	{ month: 'June', currentWeek: 20000, previousWeek: 24000 },
-].map((item, index) => ({
+export const REVENUE_DATA = [
+	{ month: "Jan", currentWeek: 13000000, previousWeek: 8000000 },
+	{ month: "Feb", currentWeek: 8000000, previousWeek: 17000000 },
+	{ month: "Mar", currentWeek: 13000000, previousWeek: 12000000 },
+	{ month: "Apr", currentWeek: 17000000, previousWeek: 10000000 },
+	{ month: "May", currentWeek: 20000000, previousWeek: 13000000 },
+	{ month: "Jun", currentWeek: 21000000, previousWeek: 23000000 },
+];
+
+export const REVENUE_VALUES = {
+	currentWeek: { label: "Current Week", value: 58211000 },
+	previousWeek: { label: "Previous Week", value: 68768000 },
+};
+
+const chartData = REVENUE_DATA.map((item, index) => ({
 	...item,
 	currentWeekActual: index <= 3 ? item.currentWeek : null,
 	currentWeekProjected: index >= 3 ? item.currentWeek : null,
@@ -48,13 +55,13 @@ export function RevenueChart() {
 					<div className='flex items-center gap-2'>
 						<div className='w-2 h-2 rounded-full bg-revenue-current' />
 						<span className='text-xs py-1 px-2'>
-							Current Week <span className='font-semibold ml-1'>$58,211</span>
+							{REVENUE_VALUES.currentWeek.label} <span className='font-semibold ml-1'>${REVENUE_VALUES.currentWeek.value.toLocaleString()}</span>
 						</span>
 					</div>
 					<div className='flex items-center gap-2'>
 						<div className='w-2 h-2 rounded-full bg-revenue-previous' />
 						<span className='text-xs py-1 px-2'>
-							Previous Week <span className='font-semibold ml-1'>$68,768</span>
+								{REVENUE_VALUES.previousWeek.label} <span className='font-semibold ml-1'>${REVENUE_VALUES.previousWeek.value.toLocaleString()}</span>
 						</span>
 					</div>
 				</div>
@@ -98,8 +105,8 @@ export function RevenueChart() {
 								return value;
 							}}
 							tick={{ fill: 'var(--secondary)', fontSize: 12 }}
-							domain={[0, 30000]}
-							ticks={[0, 10000, 20000, 30000]}
+							domain={[0, 30000000]}
+							ticks={[0, 10000000, 20000000, 30000000]}
 						/>
 						<ChartTooltip
 							cursor={false}
@@ -111,9 +118,8 @@ export function RevenueChart() {
 							stroke='var(--color-previousWeek)'
 							strokeWidth={3}
 							dot={false}
-							animationBegin={0}
-							animationDuration={500}
 							animationEasing='ease-out'
+							animateNewValues={false}
 							radius={10}
 							strokeLinejoin='round'
 							strokeLinecap='round'
@@ -127,9 +133,8 @@ export function RevenueChart() {
 							connectNulls={true}
 							strokeLinejoin='round'
 							strokeLinecap='round'
-							animationBegin={200}
-							animationDuration={500}
 							animationEasing='ease-out'
+							animateNewValues={false}
 						/>
 						<Line
 							dataKey='currentWeekProjected'
@@ -141,9 +146,8 @@ export function RevenueChart() {
 							connectNulls={true}
 							strokeLinejoin='round'
 							strokeLinecap='round'
-							animationBegin={700}
-							animationDuration={500}
 							animationEasing='ease-out'
+							animateNewValues={false}
 						/>
 					</LineChart>
 				</ChartContainer>
