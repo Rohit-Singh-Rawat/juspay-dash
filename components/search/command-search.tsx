@@ -54,9 +54,16 @@ export function CommandSearch({ navigationItems = [] }: CommandSearchProps) {
 					<span className=''>⌘</span>/
 				</kbd>
 			</button>
-			<CommandDialog open={open} onOpenChange={setOpen}>
-				<CommandInput placeholder='Type to search...' />
-				<CommandList>
+			<CommandDialog 
+				open={open} 
+				onOpenChange={setOpen}
+				className='rounded-4xl p-6 border-0 shadow-none bg-background'
+			>
+				<CommandInput 
+					placeholder='Type to search...'
+					className='border-0 shadow-none rounded-2xl bg-background'
+				/>
+				<CommandList className='bg-background'>
 					<CommandEmpty>No results found.</CommandEmpty>
 					{navigationItems.length > 0 && (
 						<CommandGroup heading='Navigation'>
@@ -64,6 +71,7 @@ export function CommandSearch({ navigationItems = [] }: CommandSearchProps) {
 								<CommandItem
 									key={item.url}
 									onSelect={() => handleSelect(item.url)}
+									className='rounded-xl'
 								>
 									{item.icon && <item.icon className='mr-2 size-4' />}
 									<span>{item.title}</span>
@@ -76,4 +84,3 @@ export function CommandSearch({ navigationItems = [] }: CommandSearchProps) {
 		</>
 	);
 }
-

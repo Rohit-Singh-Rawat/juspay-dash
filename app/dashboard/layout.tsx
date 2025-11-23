@@ -11,11 +11,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 			<RightSidebarProvider>
 				<SidebarProvider>
 					<NavigationSidebar />
-					<SidebarInset className=' h-screen overflow-hidden'>
+					<SidebarInset className='h-screen overflow-hidden'>
 						<div className='flex h-full w-full'>
 							<div className='flex flex-1 flex-col min-w-0'>
 								<Header />
-								<div className='flex flex-1 flex-col gap-4 p-6 h-[calc(100dvh-56px)] overflow-y-auto'>
+								<div className='flex flex-1 flex-col gap-4 p-3 sm:p-4 md:p-6 h-[calc(100dvh-56px)] overflow-y-auto'>
 									{children}
 								</div>
 							</div>

@@ -33,11 +33,11 @@ const chartConfig = {
 export function RevenueChart() {
 	return (
 		<Card className='bg-[#F7F9FB] dark:bg-card border-0 shadow-none rounded-2xl gap-2 flex-1 h-full'>
-			<CardHeader className='flex flex-row items-center justify-start space-y-0 pb-4'>
+			<CardHeader className='flex flex-col sm:flex-row items-start sm:items-center justify-start space-y-2 sm:space-y-0 pb-4 gap-2'>
 				<CardTitle className='text-sm font-semibold text-primary'>Revenue</CardTitle>
-				<div className='w-px h-5 bg-border mx-2' />
-				<div className='flex items-center gap-3 text-sm'>
-					<div className='flex items-center gap-2 '>
+				<div className='hidden sm:block w-px h-5 bg-border mx-2' />
+				<div className='flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 text-sm'>
+					<div className='flex items-center gap-2'>
 						<div className='w-2 h-2 rounded-full bg-revenue-current' />
 						<span className='text-xs py-1 px-2'>
 							Current Week <span className='font-semibold ml-1'>$58,211</span>
@@ -54,7 +54,7 @@ export function RevenueChart() {
 			<CardContent>
 				<ChartContainer
 					config={chartConfig}
-					className='h-[250px] w-full'
+					className='h-[200px] sm:h-[250px] w-full'
 				>
 					<LineChart
 						accessibilityLayer

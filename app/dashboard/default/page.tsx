@@ -50,21 +50,21 @@ interface MetricCardProps {
 function MetricCard({ title, value, change, isPositive, useSecondary }: MetricCardProps) {
 	return (
 		<Card
-			className={`border-0 shadow-none rounded-2xl p-6 gap-1 justify-center ${
+			className={`border-0 shadow-none rounded-2xl p-4 sm:p-6 gap-1 justify-center ${
 				useSecondary ? 'bg-card-secondary dark:bg-card-secondary' : 'bg-card dark:bg-card'
 			}`}
 		>
 			<CardHeader className='p-0'>
-				<CardTitle className={`text-sm font-semibold px-2 py-1 ${useSecondary ? 'text-primary dark:text-black' : 'text-primary'}`}>{title}</CardTitle>
+				<CardTitle className={`text-xs sm:text-sm font-semibold px-2 py-1 ${useSecondary ? 'text-primary dark:text-black' : 'text-primary'}`}>{title}</CardTitle>
 			</CardHeader>
 			<CardContent className='flex justify-between items-center p-y-1 px-2'>
-				<div className={`text-2xl font-semibold ${useSecondary ? 'dark:text-black' : ''}`}>{value}</div>
-				<div className='flex items-center gap-1 mt-1 text-sm'>
+				<div className={`text-xl sm:text-2xl font-semibold ${useSecondary ? 'dark:text-black' : ''}`}>{value}</div>
+				<div className='flex items-center gap-1 mt-1 text-xs sm:text-sm'>
 					<span className={`${useSecondary ? 'text-primary dark:text-black' : 'text-primary'}`}>{change}</span>
 					{isPositive ? (
-						<TrendingUp className={`h-4 w-4 ${useSecondary ? 'text-primary dark:text-black' : 'text-primary'}`} />
+						<TrendingUp className={`h-3 w-3 sm:h-4 sm:w-4 ${useSecondary ? 'text-primary dark:text-black' : 'text-primary'}`} />
 					) : (
-						<TrendingDown className={`h-4 w-4 ${useSecondary ? 'text-primary dark:text-black' : 'text-primary'}`} />
+						<TrendingDown className={`h-3 w-3 sm:h-4 sm:w-4 ${useSecondary ? 'text-primary dark:text-black' : 'text-primary'}`} />
 					)}
 				</div>
 			</CardContent>
@@ -74,12 +74,12 @@ function MetricCard({ title, value, change, isPositive, useSecondary }: MetricCa
 
 export default function DefaultPage() {
 	return (
-		<div className='flex flex-col gap-4  w-full mx-auto'>
+		<div className='flex flex-col gap-4 w-full mx-auto px-2 sm:px-0'>
 			<h1 className='text-sm font-semibold px-2 py-1'>Default Dashboard</h1>
 
-			<div className='grid grid-cols-1 xl:grid-cols-2 gap-7'>
+			<div className='grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-7'>
 				{/* Left side - Metric Cards */}
-				<div className='grid grid-cols-1 sm:grid-cols-2 gap-7 xl:col-span-1'>
+				<div className='grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-7 lg:col-span-1'>
 					{metricCards.map((metric) => (
 						<MetricCard
 							key={metric.title}
@@ -93,27 +93,27 @@ export default function DefaultPage() {
 				</div>
 
 				{/* Right side - Chart */}
-				<div className='xl:col-span-1'>
+				<div className='lg:col-span-1'>
 					<ProjectionsChart />
 				</div>
 			</div>
 
 			{/* Revenue and Location Grid */}
-			<div className='grid grid-cols-1 xl:grid-cols-4 gap-7 mt-3'>
-				<div className='xl:col-span-3'>
+			<div className='grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-7 mt-3'>
+				<div className='lg:col-span-3'>
 					<RevenueChart />
 				</div>
-				<div className='xl:col-span-1'>
+				<div className='lg:col-span-1'>
 					<RevenueLocationChart />
 				</div>
 			</div>
 
 			{/* Top Selling Products and Total Sales */}
-			<div className='grid grid-cols-1 xl:grid-cols-4 gap-7 mt-3'>
-				<div className='xl:col-span-3'>
+			<div className='grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-7 mt-3'>
+				<div className='lg:col-span-3'>
 					<TopSellingProducts />
 				</div>
-				<div className='xl:col-span-1'>
+				<div className='lg:col-span-1'>
 					<TotalSalesChart />
 				</div>
 			</div>

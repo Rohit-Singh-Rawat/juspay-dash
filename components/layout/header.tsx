@@ -19,7 +19,7 @@ function Breadcrumb() {
 	const segments = pathname.split('/').filter(Boolean);
 
 	return (
-		<div className='flex items-center'>
+		<div className='flex items-center min-w-0'>
 			{segments.map((segment, index) => {
 				const isLast = index === segments.length - 1;
 				const displayText =
@@ -30,12 +30,12 @@ function Breadcrumb() {
 				return (
 					<div
 						key={index}
-						className='flex items-center gap-2 px-2 py-1'
+						className='flex items-center gap-1 sm:gap-2 px-1 sm:px-2 py-1 min-w-0'
 					>
-						<span className={isLast ? 'text-primary font-normal' : 'text-secondary'}>
+						<span className={`truncate ${isLast ? 'text-primary font-normal' : 'text-secondary'}`}>
 							{displayText}
 						</span>
-						{!isLast && <span className='text-secondary pl-2'>/</span>}
+						{!isLast && <span className='text-secondary pl-1 sm:pl-2 shrink-0'>/</span>}
 					</div>
 				);
 			})}
@@ -99,36 +99,38 @@ export function Header() {
 	];
 
 	return (
-		<header className='sticky top-0 z-10 flex h-14 shrink-0 items-center gap-2 border-b bg-background'>
-			<div className='flex flex-1 items-center gap-2 px-3'>
+		<header className='sticky top-0 z-10 flex h-14 shrink-0 items-center gap-1 sm:gap-2 border-b bg-background'>
+			<div className='flex flex-1 items-center gap-1 sm:gap-2 px-2 sm:px-3 min-w-0'>
 				<LeftSidebarTrigger />
 				<Separator
 					orientation='vertical'
-					className='mr-2 h-4'
+					className='mr-1 sm:mr-2 h-4 hidden sm:block'
 				/>
 				<FavoriteButton />
-				<Breadcrumb />
+				<div className='hidden sm:block min-w-0'>
+					<Breadcrumb />
+				</div>
 			</div>
-			<div className='flex items-center gap-2 px-3'>
-				<div className='w-40'>
+			<div className='flex items-center gap-1 sm:gap-2 px-2 sm:px-3'>
+				<div className='hidden md:block w-32 lg:w-40'>
 					<CommandSearch navigationItems={allNavigationItems} />
 				</div>
 				<ThemeToggle />
 				<Button
 					variant='ghost'
 					size='icon'
-					className='rounded-lg size-7'
+					className='rounded-lg size-7 hidden sm:flex'
 				>
 					<ActivityIcon className='size-5' />
 				</Button>
 				<Separator
 					orientation='vertical'
-					className='h-4'
+					className='h-4 hidden sm:block'
 				/>
 				<Button
 					variant='ghost'
 					size='icon'
-					className='rounded-lg size-7'
+					className='rounded-lg size-7 hidden sm:flex'
 				>
 					<NotificationIcon className='size-5' />
 				</Button>

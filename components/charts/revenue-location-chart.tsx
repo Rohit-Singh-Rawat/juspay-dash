@@ -46,7 +46,7 @@ export function RevenueLocationChart() {
 							scale: 120,
 							center: [0, 50],
 						}}
-						className='w-auto h-fit max-h-40 cursor-grab'
+						className='w-auto h-fit max-h-32 sm:max-h-40 cursor-grab'
 					>
 						<ZoomableGroup>
 							<Geographies geography={geoUrl}>

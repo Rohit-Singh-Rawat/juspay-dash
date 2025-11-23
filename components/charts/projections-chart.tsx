@@ -10,24 +10,69 @@ import {
 } from '@/components/ui/chart';
 
 const chartData = [
-	{ month: 'January', projected: 150500, actual: 142500 },
-	{ month: 'February', projected: 27000, actual: 25800 },
-	{ month: 'March', projected: 22000, actual: 18200 },
-	{ month: 'April', projected: 30200, actual: 28000 },
-	{ month: 'May', projected: 15000, actual: 10000 },
-	{ month: 'June', projected: 25000, actual: 22000 },
-];
+	{ month: 'January', actual: 142500, projected: 150500 },
+	{ month: 'February', actual: 25800, projected: 27000 },
+	{ month: 'March', actual: 18200, projected: 22000 },
+	{ month: 'April', actual: 28000, projected: 30200 },
+	{ month: 'May', actual: 10000, projected: 15000 },
+	{ month: 'June', actual: 22000, projected: 25000 },
+].map(item => ({
+	...item,
+	difference: item.projected - item.actual
+}));
 
 const chartConfig = {
-	projected: {
-		label: 'Projected',
-		color: 'var(--projections-projected)',
-	},
 	actual: {
 		label: 'Actual',
 		color: 'var(--projections-actual)',
 	},
+	projected: {
+		label: 'Projected',
+		color: 'var(--projections-projected)',
+	},
+	difference: {
+		label: 'Difference',
+		color: 'var(--projections-projected)',
+	},
 } satisfies ChartConfig;
+
+const CustomTooltip = ({ active, payload }: any) => {
+	if (!active || !payload || !payload.length) return null;
+
+	const data = payload[0].payload;
+	
+	return (
+		<div className='rounded-lg border bg-background p-1.5 shadow-sm'>
+			<div className='grid gap-1.5'>
+				<div className='flex flex-col'>
+					<span className='text-[0.65rem] uppercase text-muted-foreground'>
+						{data.month}
+					</span>
+				</div>
+				<div className='grid gap-0.5'>
+					<div className='flex items-center justify-between gap-4'>
+						<div className='flex items-center gap-1.5'>
+							<div className='h-2 w-2 rounded-full' style={{ backgroundColor: 'var(--projections-actual)' }} />
+							<span className='text-xs text-muted-foreground'>Actual</span>
+						</div>
+						<span className='text-xs font-medium'>
+							${data.actual.toLocaleString()}
+						</span>
+					</div>
+					<div className='flex items-center justify-between gap-4'>
+						<div className='flex items-center gap-1.5'>
+							<div className='h-2 w-2 rounded-full' style={{ backgroundColor: 'var(--projections-projected)' }} />
+							<span className='text-xs text-muted-foreground'>Projected</span>
+						</div>
+						<span className='text-xs font-medium'>
+							${data.projected.toLocaleString()}
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
 
 export function ProjectionsChart() {
 	return (
@@ -38,12 +83,12 @@ export function ProjectionsChart() {
 			<CardContent>
 				<ChartContainer
 					config={chartConfig}
-					className='h-[190px] w-full'
+					className='h-[190px] sm:h-[250px] w-full'
 				>
 					<BarChart
 						accessibilityLayer
 						data={chartData}
-						barGap={-20}
+						barCategoryGap='20%'
 					>
 						<CartesianGrid vertical={false} />
 						<XAxis
@@ -64,22 +109,24 @@ export function ProjectionsChart() {
 							}}
 							tick={{ fill: 'hsl(var(--secondary))', fontSize: 12 }}
 						/>
-						<ChartTooltip content={<ChartTooltipContent hideLabel />} />
+						<ChartTooltip content={<CustomTooltip />} />
 						<Bar
-							dataKey='projected'
-							fill='var(--color-projected)'
-							radius={[4, 4, 0, 0]}
+							dataKey='actual'
+							stackId='a'
+							fill='var(--color-actual)'
+							radius={[0, 0, 0, 0]}
 							barSize={20}
 							animationBegin={0}
 							animationDuration={500}
 							animationEasing='ease-out'
 						/>
 						<Bar
-							dataKey='actual'
-							fill='var(--color-actual)'
-							radius={[0, 0, 0, 0]}
+							dataKey='difference'
+							stackId='a'
+							fill='var(--color-difference)'
+							radius={[4, 4, 0, 0]}
 							barSize={20}
-							animationBegin={200}
+							animationBegin={500}
 							animationDuration={500}
 							animationEasing='ease-out'
 						/>

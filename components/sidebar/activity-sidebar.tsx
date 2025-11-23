@@ -5,8 +5,10 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { BugIcon } from '@/components/icons/activity/bug';
 import { UserIcon } from '@/components/icons/activity/user';
 import { RadioIcon } from '@/components/icons/activity/radio';
+import { Sheet, SheetContent } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 import { useRightSidebar } from '@/contexts/sidebars-context';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const notifications = [
 	{
@@ -231,8 +233,35 @@ function ContactsSection() {
 	);
 }
 
+function ActivitySidebarContent() {
+	return (
+		<div className='flex flex-col gap-6 p-5 h-full'>
+			<NotificationsSection />
+			<ActivitiesSection />
+			<ContactsSection />
+		</div>
+	);
+}
+
 function ActivitySidebar() {
-	const { open } = useRightSidebar();
+	const { open, setOpen } = useRightSidebar();
+	const isMobile = useIsMobile();
+
+	if (isMobile) {
+		return (
+			<Sheet
+				open={open}
+				onOpenChange={setOpen}
+			>
+				<SheetContent
+					side='right'
+					className='w-[280px] sm:max-w-[280px] p-0 overflow-y-auto'
+				>
+					<ActivitySidebarContent />
+				</SheetContent>
+			</Sheet>
+		);
+	}
 
 	return (
 		<aside
@@ -243,11 +272,7 @@ function ActivitySidebar() {
 				open ? 'w-[280px] translate-x-0' : 'w-0 translate-x-full opacity-0 pointer-events-none'
 			)}
 		>
-			<div className='flex flex-col gap-6 p-5 h-full min-w-[280px]'>
-				<NotificationsSection />
-				<ActivitiesSection />
-				<ContactsSection />
-			</div>
+			<ActivitySidebarContent />
 		</aside>
 	);
 }

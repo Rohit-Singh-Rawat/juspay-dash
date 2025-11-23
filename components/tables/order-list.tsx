@@ -200,9 +200,9 @@ function AddOrderDialog({ open, onOpenChange, onAddOrder }: AddOrderDialogProps)
 			open={open}
 			onOpenChange={onOpenChange}
 		>
-			<DialogContent className='rounded-4xl p-10 md:max-w-md'>
+			<DialogContent className='rounded-4xl p-6 sm:p-10 md:max-w-md mx-4'>
 				<DialogHeader className='space-y-3'>
-					<DialogTitle className='text-2xl font-normal bg-linear-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent'>
+					<DialogTitle className='text-xl sm:text-2xl font-normal bg-linear-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent'>
 						Add New Order
 					</DialogTitle>
 				</DialogHeader>
@@ -224,7 +224,7 @@ function AddOrderDialog({ open, onOpenChange, onAddOrder }: AddOrderDialogProps)
 						placeholder='Enter address'
 						required
 					/>
-					<div className='flex gap-2'>
+					<div className='flex flex-col sm:flex-row gap-2'>
 						<FormInput
 							id='project'
 							value={formData.project}
@@ -376,8 +376,8 @@ export function OrderList({ data: initialData }: OrderListProps) {
 		<TooltipProvider>
 			<div className='space-y-4'>
 				{/* Table Header Controls */}
-				<div className='flex items-center justify-between gap-4 bg-[#F7F9FB] dark:bg-card rounded-lg p-2'>
-					<div className='flex items-center gap-3'>
+				<div className='flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4 bg-[#F7F9FB] dark:bg-card rounded-lg p-2'>
+					<div className='flex items-center gap-2 sm:gap-3'>
 						{/* Add Order Button with Tooltip */}
 						<Tooltip>
 							<TooltipTrigger asChild>
@@ -433,12 +433,12 @@ export function OrderList({ data: initialData }: OrderListProps) {
 					</div>
 
 					{/* Search Input */}
-					<div className='relative'>
+					<div className='relative flex-1 sm:flex-initial'>
 						<Input
 							id={`${id}-search`}
 							ref={inputRef}
 							className={cn(
-								'peer w-48 ps-9 h-9 bg-white/40 dark:bg-accent active:ring-1 placeholder:text-subtle border rounded-lg border-black/10 dark:border-border',
+								'peer w-full sm:w-48 ps-9 h-9 bg-white/40 dark:bg-[#1C1C1C66] active:ring-1 placeholder:text-subtle border rounded-lg border-black/10 dark:border-border',
 								Boolean(searchValue) && 'pe-9'
 							)}
 							value={searchValue}
@@ -483,7 +483,7 @@ export function OrderList({ data: initialData }: OrderListProps) {
 				/>
 
 				{/* Table */}
-				<div className='overflow-hidden rounded-lg bg-background'>
+				<div className='overflow-x-auto rounded-lg bg-background'>
 					<Table>
 						<TableHeader>
 							{table.getHeaderGroups().map((headerGroup) => (
@@ -534,7 +534,7 @@ export function OrderList({ data: initialData }: OrderListProps) {
 				</div>
 
 				{/* Pagination */}
-				<div className='flex items-end justify-end gap-2'>
+				<div className='flex items-end justify-end gap-2 overflow-x-auto'>
 					<Pagination className='justify-end'>
 						<PaginationContent>
 							<PaginationItem>

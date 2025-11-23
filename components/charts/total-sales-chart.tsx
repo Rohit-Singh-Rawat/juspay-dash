@@ -22,14 +22,14 @@ export function TotalSalesChart() {
 	const directPercentage = ((chartData[0].value / total) * 100).toFixed(1);
 
 	return (
-		<Card className='bg-[#F7F9FB] dark:bg-card border-0 shadow-none rounded-2xl'>
-			<CardHeader className='flex flex-row items-center justify-start space-y-0 pb-4'>
+		<Card className='bg-[#F7F9FB] dark:bg-card border-0 shadow-none rounded-2xl flex-1 h-full gap-2' >
+			<CardHeader className='flex flex-row items-center justify-start space-y-0 pb-0'>
 				<CardTitle className='text-sm font-semibold text-primary'>Total Sales</CardTitle>
 			</CardHeader>
 			<CardContent className='flex flex-col items-center pb-6'>
 				<ChartContainer
 					config={chartConfig}
-					className='h-[200px] w-full max-w-[200px]'
+					className='h-[150px]  w-full '
 				>
 					<PieChart>
 						<Pie
@@ -42,7 +42,6 @@ export function TotalSalesChart() {
 							strokeWidth={0}
 							strokeLinecap='butt'
 							blendStroke={true}
-							
 							paddingAngle={5}
 						>
 							{chartData.map((entry, index) => (
@@ -51,30 +50,7 @@ export function TotalSalesChart() {
 									fill={entry.color}
 								/>
 							))}
-							<Label
-								content={({ viewBox }) => {
-									if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
-										return (
-											<g>
-												<text
-													x={viewBox.cx}
-													y={viewBox.cy}
-													textAnchor='middle'
-													dominantBaseline='middle'
-												>
-													<tspan
-														x={viewBox.cx}
-														y={viewBox.cy}
-														className='fill-foreground text-2xl font-bold'
-													>
-														{directPercentage}%
-													</tspan>
-												</text>
-											</g>
-										);
-									}
-								}}
-							/>
+							
 						</Pie>
 						<ChartTooltip
 							content={<ChartTooltipContent hideLabel />}
@@ -101,7 +77,7 @@ export function TotalSalesChart() {
 								/>
 								<span className='text-sm'>{item.name}</span>
 							</div>
-							<span className='text-sm font-semibold'>${item.value.toFixed(2)}</span>
+							<span className='text-sm font-normal	'>${item.value.toFixed(2)}</span>
 						</div>
 					))}
 				</div>

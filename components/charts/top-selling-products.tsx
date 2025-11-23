@@ -42,14 +42,14 @@ const productsData = [
 
 export function TopSellingProducts() {
 	return (
-		<Card className='bg-[#F7F9FB] dark:bg-card border-0 shadow-none rounded-2xl gap-0'>
+		<Card className='bg-[#F7F9FB] dark:bg-card border-0 shadow-none rounded-2xl gap-0 flex-1 h-full'>
 			<CardHeader className='flex flex-row items-center justify-start space-y-0 '>
 				<CardTitle className='text-sm font-semibold text-primary'>Top Selling Products</CardTitle>
 			</CardHeader>
 			<CardContent>
 				<div className='w-full'>
-					<div className='overflow-x-auto'>
-						<table className='w-full'>
+					<div className='overflow-x-auto -mx-2 px-2'>
+						<table className='w-full min-w-[500px]'>
 							<thead>
 								<tr className='border-b border-subtle'>
 									<th className='text-left text-sm font-normal text-secondary py-3 px-2'>Name</th>
